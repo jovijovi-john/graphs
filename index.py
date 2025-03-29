@@ -4,7 +4,7 @@ class Graph:
 
     def add_vertex(self, vertex):
         if vertex not in self.adjacency:
-            self.adjacency[vertex] = []
+            self.adjacency[vertex] = set()
 
     def add_edge(self, vertex1, vertex2):
 
@@ -16,10 +16,10 @@ class Graph:
 
         # grafo não direcionado: adiciona a aresta nos dois sentidos
         if vertex2 not in self.adjacency[vertex1]:
-            self.adjacency[vertex1].append(vertex2)
+            self.adjacency[vertex1].add(vertex2)
 
         if vertex1 not in self.adjacency[vertex2]:
-            self.adjacency[vertex2].append(vertex1)
+            self.adjacency[vertex2].add(vertex1)
 
     def show_graph(self):
         for vertex, neighbors in self.adjacency.items():
@@ -31,8 +31,7 @@ class Graph:
             vertex_neighbors = self.adjacency[vertex]  # pegando os vizinhos
 
             for vertex_neighbor in vertex_neighbors:  # indo na lista de adjacencias do vizinho e removendo o vertex
-                self.adjacency[vertex_neighbor] = self.remove_element_from_array(
-                    self.adjacency[vertex_neighbor], vertex)
+                self.adjacency[vertex_neighbor].discard(vertex)
 
             del self.adjacency[vertex]
 
@@ -40,22 +39,11 @@ class Graph:
 
         # vai no vertice, procura o vertice2, remove ele
         if vertex1 in self.adjacency:
-            self.adjacency[vertex1] = self.remove_element_from_array(
-                self.adjacency[vertex1], vertex2)
+            self.adjacency[vertex1].discard(vertex2)
 
         if vertex2 in self.adjacency:
-            self.adjacency[vertex2] = self.remove_element_from_array(
-                self.adjacency[vertex2], vertex1)
+            self.adjacency[vertex2].discard(vertex1)
         # vai no vertice2, procura o vertice 1, remove ele
-
-    def remove_element_from_array(self, array, element):
-        aux_list = []
-
-        for current_element in array:
-            if current_element != element:
-                aux_list.append(current_element)
-
-        return aux_list
 
 
 myGraph = Graph()
