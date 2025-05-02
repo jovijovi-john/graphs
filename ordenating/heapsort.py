@@ -1,82 +1,6 @@
 import math
 
 
-class MinHeap:
-    def __init__(self, values):
-        self.heap = []
-        self.buildHeap(values)
-
-    def buildHeap(self, array):
-        for index in array:
-            self.insert(index)
-
-    def parent(self, i):
-        return math.floor((i - 1) / 2)
-
-    def leftSon(self, i):
-        return (i * 2) + 1
-
-    def rightSon(self, i):
-        return (i * 2) + 2
-
-    def swap(self, i, j):
-        aux = self.heap[i]
-        self.heap[i] = self.heap[j]
-        self.heap[j] = aux
-
-    def showHeap(self):
-        print(self.heap)
-
-    def peek_min(self):
-        return self.heap[0]
-
-    def extract_min(self):
-
-        lastElementIndex = len(self.heap) - 1
-        self.swap(0, lastElementIndex)
-        del self.heap[lastElementIndex]
-
-        current = 0
-
-        self.heapify_down(current)
-
-    def insert(self, value):
-        # Adiciona no final da lista
-        self.heap.append(value)
-        currentIndex = len(self.heap) - 1
-
-        self.heapify_up(currentIndex)
-
-    def heapify_up(self, index):
-        while index > 0:
-
-            parentIndex = self.parent(index)
-
-            if (self.heap[index] < self.heap[parentIndex]):
-                self.swap(index, parentIndex)  # trocando o filho com o pai
-                index = parentIndex  # atualizando o indice do 'filho'
-            else:
-                break
-
-    def heapfiy_down(self, index):
-
-        while self.leftSon(index) < len(self.heap):
-
-            leftSon = self.leftSon(index)
-            rightSon = self.rightSon(index)
-
-            if rightSon < len(self.heap):
-                smallest = leftSon if self.heap[leftSon] < self.heap[rightSon] else rightSon
-            else:
-                smallest = leftSon
-
-            if (self.heap[index] > self.heap[smallest]):
-                self.swap(index, smallest)
-                index = smallest
-            else:
-                break
-
-
 class MaxHeap:
     def __init__(self, array=[]):
         self.heap = []
@@ -157,7 +81,35 @@ class MaxHeap:
         print(self.heap)
 
 
-myHeap = MinHeap([10, 20, 4, 3, 1, 9])
+class MinHeap:
+    def __init__(self, array):
+        self.heap = []
+        if (len(array) > 0):
+            self.build_heap(array)
 
-myMaxHeap = MaxHeap([10, 20, 4, 3, 1, 9])
-myHeap.showHeap()
+    def build_heap(self, array):
+        for item in array:
+            self.insert(item)
+
+    def insert(self, item):
+        self.heap.append(item)
+        index = len(self.heap) - 1
+        self.heapify_up(index)
+
+
+class HeapSort:
+    def __init__(self, array):
+        self.array = array
+        self.heap = MaxHeap(self.array)
+
+    def sort(self):
+        sorted_array = []
+
+        for i in range(len(self.array)):
+            sorted_array.append(self.heap.extract_max())
+
+        return sorted_array
+
+
+myArray = [5, 100, 3, 2, 9, 21, 48, 22, 44, 55, 1003, 900, 213, 923]
+print(HeapSort(myArray).sort())
