@@ -6,24 +6,24 @@ class MergeSort:
     def merge(self, left: list, right: list):
 
         merged_list = []
-        count_i = 0
-        count_j = 0
+        i = 0
+        j = 0
 
-        while count_i < len(left) and count_j < len(right):
-            if (left[count_i] < right[count_j]):
-                merged_list.append(left[count_i])
-                count_i += 1
+        while i < len(left) and j < len(right):
+            if (left[i] < right[j]):
+                merged_list.append(left[i])
+                i += 1
             else:
-                merged_list.append(right[count_j])
-                count_j += 1
+                merged_list.append(right[j])
+                j += 1
 
-        while count_i < len(left):
-            merged_list.append(left[count_i])
-            count_i += 1
+        while i < len(left):
+            merged_list.append(left[i])
+            i += 1
 
-        while count_j < len(right):
-            merged_list.append(right[count_j])
-            count_j += 1
+        while j < len(right):
+            merged_list.append(right[j])
+            j += 1
 
         return merged_list
 
@@ -40,5 +40,5 @@ class MergeSort:
         return self.merge(left, right)
 
 
-sort = MergeSort([31, 52, 92, 12, 27, 55, 2])
+sort = MergeSort([31, 92, 52, 12])
 print(sort.array)

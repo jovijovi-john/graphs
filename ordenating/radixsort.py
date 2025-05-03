@@ -13,8 +13,6 @@ Existem duas formas de fazer isso:
 """
 
 # LSD, com vetor
-
-from collections import defaultdict
 vector = ["170", "045", "075", "090", "802", "024", "002", "066"]
 
 # precisamos saber qual é o número com a maior quantidade de dígitos
